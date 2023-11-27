@@ -6,6 +6,21 @@ import { Layout } from "~/components/Layout";
 import { client } from "tina/__generated__/client";
 
 
+export const loader = async () => {
+  const { data, query, variables } = await client.queries.page({
+    relativePath: "home.mdx",
+  });
+
+  return {
+    props: {
+      data,
+      query,
+      variables,
+    },
+  };
+};
+
+
 export default function Home() {
   const { props } = useLoaderData();
   const { data } = useTina({
@@ -21,17 +36,3 @@ export default function Home() {
     </Layout>
   );
 }
-
-export const loader = async () => {
-  const { data, query, variables } = await client.queries.page({
-    relativePath: "home.mdx",
-  });
-
-  return {
-    props: {
-      data,
-      query,
-      variables,
-    },
-  };
-};
